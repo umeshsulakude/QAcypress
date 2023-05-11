@@ -4,17 +4,22 @@ describe('template spec', () => {
     // failing the test
     return false
 })
-  //cy.visit('https://testsheepnz.github.io/BasicCalculator')
+beforeEach(function () {
+  cy.visit('https://testsheepnz.github.io/BasicCalculator');
   
+});
   it('add Test case', () => {
-    cy.visit('https://testsheepnz.github.io/BasicCalculator')
     cy.wait(2000)
-    cy.get('#number1Field').type('4')
-    cy.get('#number2Field').type('10')
-    cy.get('#calculateButton').click()
-    cy.get('#numberAnswerField').should('have.value','14')
+    const num1 = Math.floor(Math.random() * 10) + 1;
+    const num2 = Math.floor(Math.random() * 10) + 1;
+    const sum = num1 + num2;
     
-    //Verifying the clear function and adding with larger digits
+    cy.get('#number1Field').type(num1)
+    cy.get('#number2Field').type(num2)
+    cy.get('#calculateButton').click()
+    cy.get('#numberAnswerField').should('have.value',sum)
+    
+    //Verifying the clear function and adding with larger digits with hardcode values
     cy.get('#clearButton').click()
     cy.get('#number1Field').clear()
     cy.get('#number1Field').type('1000')
@@ -38,15 +43,18 @@ describe('template spec', () => {
   })
 
   it('substract Test case', () => {
-    cy.visit('https://testsheepnz.github.io/BasicCalculator')
+    
     cy.wait(2000)
-    cy.get('#number1Field').type('14')
-    cy.get('#number2Field').type('10')
+    const num1 = Math.floor(Math.random() * 10) + 1;
+    const num2 = Math.floor(Math.random() * 10) + 1;
+    const difference = num1 - num2;
+    cy.get('#number1Field').type(num1)
+    cy.get('#number2Field').type(num2)
     cy.wait(1000)
     cy.get('#selectOperationDropdown').select('Subtract')
     cy.wait(1000)
     cy.get('#calculateButton').click()
-    cy.get('#numberAnswerField').should('have.value','4')
+    cy.get('#numberAnswerField').should('have.value',difference)
     
     //Verifying the clear function and subtract with larger digits
     cy.get('#clearButton').click()
@@ -72,18 +80,22 @@ describe('template spec', () => {
   })
 
   it('Divide Test case', () => {
-    cy.visit('https://testsheepnz.github.io/BasicCalculator')
     cy.wait(2000)
-    cy.get('#number1Field').type('10')
-    cy.get('#number2Field').type('2')
+    const num1 = Math.floor(Math.random() * 10) + 1;
+    const num2 = Math.floor(Math.random() * 10) + 1;
+    const quotient = num1 / num2;
+    cy.get('#number1Field').type(num1)
+    cy.get('#number2Field').type(num2)
     cy.wait(1000)
     cy.get('#selectOperationDropdown').select('Divide')
     cy.wait(1000)
     cy.get('#calculateButton').click()
-    cy.get('#numberAnswerField').should('have.value','5')
+    cy.get('#numberAnswerField').should('have.value',quotient)
     cy.wait(1000)
     cy.get('#number1Field').clear()
     cy.get('#number1Field').type('11')
+    cy.get('#number2Field').clear()
+    cy.get('#number2Field').type('2')
     cy.wait(1000)
     cy.get('#calculateButton').click()
     cy.get('#numberAnswerField').should('have.value','5.5')
@@ -112,15 +124,18 @@ describe('template spec', () => {
   })
 
   it('Multiply Test case', () => {
-    cy.visit('https://testsheepnz.github.io/BasicCalculator')
     cy.wait(2000)
-    cy.get('#number1Field').type('10')
-    cy.get('#number2Field').type('10')
+    const num1 = Math.floor(Math.random() * 10) + 1;
+    const num2 = Math.floor(Math.random() * 10) + 1;
+    const product = num1 * num2;
+    cy.get('#number1Field').type(num2)
+    cy.get('#number2Field').type(num2)
     cy.wait(1000)
     cy.get('#selectOperationDropdown').select('Multiply')
     cy.wait(1000)
     cy.get('#calculateButton').click()
-    cy.get('#numberAnswerField').should('have.value','100')
+    cy.wait(1000)
+    cy.get('#numberAnswerField').should('have.value',product)
     
     //Verifying the clear function and subtract with larger digits
     cy.get('#clearButton').click()
